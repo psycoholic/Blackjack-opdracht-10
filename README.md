@@ -1,11 +1,5 @@
-# Blackjack-opdracht-10
-Opdracht 10 voor de programmeer cursus van premiums
+/*  Declare alle variables die gebruikt gaan worden */
 
-
-// Declare alle variables die gebruikt gaan worden
-// const deck;
-// const dealerHand;
-// const hand;
 var script = 'blackjack.js';
 console.log(`${script}`);
 
