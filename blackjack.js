@@ -82,13 +82,13 @@ console.log('rendereddeck[0]c[1]', renderedDeck[0].childNodes[1]);
         shuffle();
         // Verwijder de laatste 2 items van de deck array
          let result = deck.splice(1,1);
-         let dealerResult = deck.splice(1, 1)
+         let dealerResult = deck.splice(1, 1);
 
          // Pak de div elementen
          const hand = document.getElementById('hand');
          const dealerHand = document.getElementById('dealerHand');
 
-                // Pak de id naam van het result
+                // Kijk of de functie aangeroepen is door de player of de dealer
                 if (handPlayer === true) {
                     console.log("handPlayer is true");
                     for (item of result) {
@@ -113,13 +113,12 @@ console.log('rendereddeck[0]c[1]', renderedDeck[0].childNodes[1]);
 
 
         function playerHand(){
-          // pop hier items uit de renderDeckElements, en voeg deze toe aan de player hand
+          // Deel de hand voor de speler
           deal(true);
-
         }
 
         function dealerHand(){
-          // pop hier items uit de renderDeckElements, en voeg deze toe aan de dealer
+          // Deel de hand voor de dealer, als de player als een kaart heeft gehad..
           deal(true);
         }
 
