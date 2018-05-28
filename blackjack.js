@@ -12,8 +12,6 @@ console.log(`${script}`);
           for (let symbol of symbolen) {
             for (idx = 1; idx < 13; idx++){
               const obj = {
-                  symbol: `/images/${symbol}-${idx}.png`,
-                  id :  `/images/${symbol}-${idx}.png`,
                   imgF: `images/${symbol}-${idx}.png`,
                   imgB: `images/achterkant.png`,
                   waarde: idx
@@ -86,22 +84,26 @@ console.log('rendereddeck[0]c[1]', renderedDeck[0].childNodes[1]);
       const dealKaart = document.getElementById('dealkaart');
       dealKaart.addEventListener('click', deal);
 
-      function deal(input){
+
+      function deal(handPlayer, handDealer){
         // pop van het geshufflde deck 2 kaarten, en wijs deze toe aan de hand, en de dealer.
         shuffle();
+        this.handPlayer = "playerHand";
+        this.handDealer = "dealerHand";
         // Verwijder de laatste 2 items van de deck array
          let result = deck.splice(1,2);
          console.log(result);
+         let dealerResult = deck.splice(1, 2)
+         console.log(dealerResult);
          const hand = document.getElementById('hand');
          const dealerHand = document.getElementById('dealerHand');
+         const tempHand = [];
                 // Pak de id naam van het result
                 for (item of result) {
                     var store = [];
                     store.push(item.id);
-                        console.log(store);
                         // Als de id overeenkomt met een id in renderedDeck
                         if (renderedDeck[item.id] === store.id) {
-                            console.log(item.cardImgF);
                             var handDiv = document.createElement('IMG');
                             handDiv.setAttribute('src', `${item.imgF}`);
                             console.log(handDiv);
@@ -110,8 +112,22 @@ console.log('rendereddeck[0]c[1]', renderedDeck[0].childNodes[1]);
                             console.log("Fail");
                         }
                 }
+                for (item of dealerResult) {
+                        // Als de id overeenkomt met een id in renderedDeck
+                        if (renderedDeck[item.id] === store.id) {
+                            var dealerDiv = document.createElement('IMG');
+                            dealerDiv.setAttribute('src', `${item.imgB}`);
+                            console.log(dealerDiv);
+                            dealerHand.appendChild(dealerDiv);
+                        } else {
+                            console.log("Fail");
+                        }
+                }
+
                 return result;
       }
+
+
 
       function HitCard(){
         // Pak de button met id hit, kijk voor click. En Pop van het geshufflde deck 1 kaart.
