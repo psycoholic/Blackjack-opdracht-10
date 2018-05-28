@@ -57,14 +57,6 @@ const renderedDeck = renderDeckElements();
 console.log('rendereddeck[0]c[1]', renderedDeck[0].childNodes[1]);
 // document.body.appendChild(renderedDeck[0].childNodes[1]); // Test
 
-      function handElements(){
-        // pop hier items uit de renderDeckElements, en voeg deze toe aan de player hand
-      }
-
-      function dealerHandElements(){
-        // pop hier items uit de renderDeckElements, en voeg deze toe aan de dealer
-      }
-
       function shuffle(){
         // Pak de deck array, en leeg deze. pak deze items vervolgens en vermenigvuldig deze met random. Vul hiernaa de array weer met de nieuwe results.
           // Leeg het deck in een nieuwe array
@@ -82,50 +74,54 @@ console.log('rendereddeck[0]c[1]', renderedDeck[0].childNodes[1]);
       }
 
       const dealKaart = document.getElementById('dealkaart');
-      dealKaart.addEventListener('click', deal);
-
+      dealKaart.addEventListener('click', playerHand);
 
       function deal(handPlayer, handDealer){
         // pop van het geshufflde deck 2 kaarten, en wijs deze toe aan de hand, en de dealer.
+        console.log(handPlayer);
         shuffle();
-        this.handPlayer = "playerHand";
-        this.handDealer = "dealerHand";
         // Verwijder de laatste 2 items van de deck array
-         let result = deck.splice(1,2);
-         console.log(result);
-         let dealerResult = deck.splice(1, 2)
-         console.log(dealerResult);
+         let result = deck.splice(1,1);
+         let dealerResult = deck.splice(1, 1)
+
+         // Pak de div elementen
          const hand = document.getElementById('hand');
          const dealerHand = document.getElementById('dealerHand');
-         const tempHand = [];
+
                 // Pak de id naam van het result
-                for (item of result) {
-                    var store = [];
-                    store.push(item.id);
-                        // Als de id overeenkomt met een id in renderedDeck
-                        if (renderedDeck[item.id] === store.id) {
-                            var handDiv = document.createElement('IMG');
-                            handDiv.setAttribute('src', `${item.imgF}`);
-                            console.log(handDiv);
-                            hand.appendChild(handDiv);
-                        } else {
-                            console.log("Fail");
-                        }
+                if (handPlayer === true) {
+                    console.log("handPlayer is true");
+                    for (item of result) {
+                            // Maak voor elk item in result, een img aan en verwijs deze naar de img referentie
+                                var handDiv = document.createElement('IMG');
+                                handDiv.setAttribute('src', `${item.imgF}`);
+                                hand.appendChild(handDiv);
+                    }
                 }
-                for (item of dealerResult) {
-                        // Als de id overeenkomt met een id in renderedDeck
-                        if (renderedDeck[item.id] === store.id) {
-                            var dealerDiv = document.createElement('IMG');
-                            dealerDiv.setAttribute('src', `${item.imgB}`);
-                            console.log(dealerDiv);
-                            dealerHand.appendChild(dealerDiv);
-                        } else {
-                            console.log("Fail");
-                        }
+                if (handDealer === true) {
+                    console.log("handDealer is true");
+                    for (item of dealerResult) {
+                            // Als de id overeenkomt met een id in renderedDeck
+                                var dealerDiv = document.createElement('IMG');
+                                dealerDiv.setAttribute('src', `${item.imgB}`);
+                                dealerHand.appendChild(dealerDiv);
+                    }
                 }
 
                 return result;
       }
+
+
+        function playerHand(){
+          // pop hier items uit de renderDeckElements, en voeg deze toe aan de player hand
+          deal(true);
+
+        }
+
+        function dealerHand(){
+          // pop hier items uit de renderDeckElements, en voeg deze toe aan de dealer
+          deal(true);
+        }
 
 
 
