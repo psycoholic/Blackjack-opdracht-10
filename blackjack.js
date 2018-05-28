@@ -13,7 +13,7 @@ console.log(`${script}`);
             for (idx = 1; idx < 13; idx++){
               const obj = {
                   symbol: `/images/${symbol}-${idx}.png`,
-                  id :  `/images${symbol}-${idx}.png`,
+                  id :  `/images/${symbol}-${idx}.png`,
                   imgF: `images/${symbol}-${idx}.png`,
                   imgB: `images/achterkant.png`,
                   waarde: idx
@@ -54,11 +54,10 @@ const deck = createDeckElements();
           // Return de volledige array met alle gecreerde elementen.
           return deckElements;
       }
-
 // Sla het resultaat van het deck render op in een variable om later te gebruiken
 const renderedDeck = renderDeckElements();
-console.log(renderedDeck[0].childNodes[0]);
-document.body.appendChild(renderedDeck[0].childNodes[1]); // Test
+console.log('rendereddeck[0]c[1]', renderedDeck[0].childNodes[1]);
+// document.body.appendChild(renderedDeck[0].childNodes[1]); // Test
 
       function handElements(){
         // pop hier items uit de renderDeckElements, en voeg deze toe aan de player hand
@@ -84,8 +83,34 @@ document.body.appendChild(renderedDeck[0].childNodes[1]); // Test
             }
       }
 
-      function Deal(){
+      const dealKaart = document.getElementById('dealkaart');
+      dealKaart.addEventListener('click', deal);
+
+      function deal(input){
         // pop van het geshufflde deck 2 kaarten, en wijs deze toe aan de hand, en de dealer.
+        shuffle();
+        // Verwijder de laatste 2 items van de deck array
+         let result = deck.splice(1,2);
+         console.log(result);
+         const hand = document.getElementById('hand');
+         const dealerHand = document.getElementById('dealerHand');
+                // Pak de id naam van het result
+                for (item of result) {
+                    var store = [];
+                    store.push(item.id);
+                        console.log(store);
+                        // Als de id overeenkomt met een id in renderedDeck
+                        if (renderedDeck[item.id] === store.id) {
+                            console.log(item.cardImgF);
+                            var handDiv = document.createElement('IMG');
+                            handDiv.setAttribute('src', `${item.imgF}`);
+                            console.log(handDiv);
+                            hand.appendChild(handDiv);
+                        } else {
+                            console.log("Fail");
+                        }
+                }
+                return result;
       }
 
       function HitCard(){
