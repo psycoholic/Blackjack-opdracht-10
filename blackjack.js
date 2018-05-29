@@ -61,13 +61,10 @@ console.log('rendereddeck[0]c[1]', renderedDeck[0].childNodes[1]);
         // Pak de deck array, en leeg deze. pak deze items vervolgens en vermenigvuldig deze met random. Vul hiernaa de array weer met de nieuwe results.
           // Leeg het deck in een nieuwe array
           const tempDeck = deck.splice(0);
-          console.log(deck);
-          console.log(tempDeck);
 
           while (tempDeck.length > 0 ) {
             // vermenigvuldig de array lengte met een random getal zodat het resultaat nooit langer dan de array kan worden.
               const randomGetal = Math.floor(Math.random() * tempDeck.length);
-              console.log(randomGetal);
 
               deck.push(tempDeck.splice(randomGetal, 1).pop());
             }
@@ -82,29 +79,40 @@ console.log('rendereddeck[0]c[1]', renderedDeck[0].childNodes[1]);
         shuffle();
         // Verwijder de laatste 2 items van de deck array
          let result = deck.splice(1,1);
-         let dealerResult = deck.splice(1, 1)
+         console.log(result);
+         let dealerResult = deck.splice(1, 1);
 
          // Pak de div elementen
          const hand = document.getElementById('hand');
          const dealerHand = document.getElementById('dealerHand');
 
-                // Pak de id naam van het result
+         const total = [];
+         const value = result.waarde;
+         console.log(value);
+                // Kijk of de functie aangeroepen is door de player of de dealer
                 if (handPlayer === true) {
                     console.log("handPlayer is true");
                     for (item of result) {
                             // Maak voor elk item in result, een img aan en verwijs deze naar de img referentie
-                                var handDiv = document.createElement('IMG');
-                                handDiv.setAttribute('src', `${item.imgF}`);
-                                hand.appendChild(handDiv);
+                            console.log(typeof item);
+                            console.log(item);
+                            var handImg = document.createElement('IMG');
+                            handImg.setAttribute('src', `${item.imgF}`);
+                            handImg.setAttribute("waarde",`${item.idx}`);
+                            hand.appendChild(handImg);
+                            // var value = item.waarde;
+                            // console.log(value);
                     }
                 }
                 if (handDealer === true) {
                     console.log("handDealer is true");
                     for (item of dealerResult) {
                             // Als de id overeenkomt met een id in renderedDeck
-                                var dealerDiv = document.createElement('IMG');
-                                dealerDiv.setAttribute('src', `${item.imgB}`);
-                                dealerHand.appendChild(dealerDiv);
+                            console.log(item.waarde);
+                            var dealerImg = document.createElement('IMG');
+                            dealerImg.setAttribute('src', `${item.imgF}`);
+                            dealerImg.setAttribute('waarde',`${item.waarde}`);
+                            hand.appendChild(dealerImg);
                     }
                 }
 
@@ -113,14 +121,12 @@ console.log('rendereddeck[0]c[1]', renderedDeck[0].childNodes[1]);
 
 
         function playerHand(){
-          // pop hier items uit de renderDeckElements, en voeg deze toe aan de player hand
+          // Deel de hand voor de speler
           deal(true);
-
         }
-
         function dealerHand(){
-          // pop hier items uit de renderDeckElements, en voeg deze toe aan de dealer
-          deal(true);
+          // Deel de hand voor de dealer, als de player alle kaarten heeft gehad..
+          deal(false, true);
         }
 
 
