@@ -1,0 +1,10 @@
+#deck { display: flex; flex-wrap: wrap; }
+#deck > div { max-width: 30px; }
+
+body {
+  background: #009900;
+}
+
+#table { max-width: 80%; margin: 0 auto; background: #ccc; display: flex; flex-wrap: wrap; min-height: 450px;}
+#dealerHand { width: 100%; }
+img { max-width: 150px; }
